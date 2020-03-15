@@ -27,56 +27,70 @@ const getDegHou = (d: Date) => (
 				+ (0.5 * d.getMinutes())
 );
 
-export const Clock: React.FC = () => {
-	const [degSec, setDegSec] = useState(getDegSec(new Date()));
-	const [degMin, setDegMin] = useState(getDegMin(new Date()));
-	const [degHou, setDegHou] = useState(getDegHou(new Date()));
+export class Clock extends React.PureComponent {
+	state = {
+		degSec: getDegSec(new Date()),
+		degMin: getDegMin(new Date()),
+		degHou: getDegHou(new Date()),
+		interval: null,
+	}
 
-	useEffect(() => {
+	componentDidMount() {
 		const interval = setInterval(() => {
 			const d = new Date();
 
-			setDegSec(getDegSec(d));
-			setDegMin(getDegMin(d));
-			setDegHou(getDegHou(d));
+			this.setState({
+				degSec: getDegSec(d),
+				degMin: getDegMin(d),
+				degHou: getDegHou(d),
+			});
 		}, 20);
-		return () => clearInterval(interval);
-	}, [degSec, degMin, degHou]);
 
-	return (
-		<Flex
-			height={size}
-			width={size}
-			bg="white"
-			borderRadius="100%"
-			borderStyle="solid"
-			borderWidth={2}
-			justifyContent="center"
-			alignItems="center"
-		>
-			<Box height="15px" width="15px" bg="grays.300" borderRadius="100%" zIndex={10} />
+		this.setState({ interval })
+	}
 
-			{[...Array(60).keys()].map(key => (
-				<Indicator
-					key={key}
-					deg={6 * (key + 1)}
-					isHour={(key + 1) % 5 === 0}
-				/>
-			))}
+	componentWillUnmount() {
+		clearInterval(this.state.interval);
+	}
 
-			{[...Array(clockNumbers.length).keys()].map(key => (
-				<ClockNumber
-					key={key}
-					number={clockNumbers[key]}
-					deg={360 / clockNumbers.length * key}
-				/>
-			))}
+	render() {
+		const { degSec, degMin, degHou } = this.state;
 
-			<ClockHand color="reds.300" handSize={getHandSize(30)} deg={degSec} />
-			<ClockHand color="grays.300" handSize={getHandSize(30)} deg={degMin} />
-			<ClockHand color="grays.300" handSize={getHandSize(100)} deg={degHou} />
-		</Flex>
-	);
+		return (
+			<Flex
+				height={size}
+				width={size}
+				bg="white"
+				borderRadius="100%"
+				borderStyle="solid"
+				borderWidth={2}
+				justifyContent="center"
+				alignItems="center"
+			>
+				<Box height="15px" width="15px" bg="grays.300" borderRadius="100%" zIndex={10} />
+
+				{[...Array(60).keys()].map(key => (
+					<Indicator
+						key={key}
+						deg={6 * (key + 1)}
+						isHour={(key + 1) % 5 === 0}
+					/>
+				))}
+
+				{[...Array(clockNumbers.length).keys()].map(key => (
+					<ClockNumber
+						key={key}
+						number={clockNumbers[key]}
+						deg={360 / clockNumbers.length * key}
+					/>
+				))}
+
+				<ClockHand color="reds.300" handSize={getHandSize(30)} deg={degSec} />
+				<ClockHand color="grays.300" handSize={getHandSize(30)} deg={degMin} />
+				<ClockHand color="grays.300" handSize={getHandSize(100)} deg={degHou} />
+			</Flex>
+		);
+	}
 };
 
 const Indicator: React.FC<IndicatorProps> = ({ deg, isHour }) => (
