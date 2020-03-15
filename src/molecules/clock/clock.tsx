@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Flex, Box } from '../../atoms/layout';
 import { Heading } from '../../atoms/typography';
 
-const size = 700;
+const size = 400;
 const indicatorSize = 10;
 
 const clockNumbers = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+const range = (length: number) => ([...Array(length).keys()]);
 
 const getHandSize = (shorten: number) => (size / 2 - shorten);
 const getIndicatorOffset = () => ((size - indicatorSize) / 2);
@@ -44,7 +46,7 @@ export class Clock extends React.PureComponent {
 				degMin: getDegMin(d),
 				degHou: getDegHou(d),
 			});
-		}, 20);
+		}, 30);
 
 		this.setState({ interval })
 	}
@@ -60,7 +62,6 @@ export class Clock extends React.PureComponent {
 			<Flex
 				height={size}
 				width={size}
-				bg="white"
 				borderRadius="100%"
 				borderStyle="solid"
 				borderWidth={2}
@@ -69,7 +70,7 @@ export class Clock extends React.PureComponent {
 			>
 				<Box height="15px" width="15px" bg="grays.300" borderRadius="100%" zIndex={10} />
 
-				{[...Array(60).keys()].map(key => (
+				{range(60).map(key => (
 					<Indicator
 						key={key}
 						deg={6 * (key + 1)}
@@ -77,7 +78,7 @@ export class Clock extends React.PureComponent {
 					/>
 				))}
 
-				{[...Array(clockNumbers.length).keys()].map(key => (
+				{range(clockNumbers.length).map(key => (
 					<ClockNumber
 						key={key}
 						number={clockNumbers[key]}
