@@ -3,34 +3,43 @@ import React, { useEffect, useState } from 'react';
 import { Flex, Box } from '../../atoms/layout';
 import { Heading } from '../../atoms/typography';
 
-const size = 500;
+const size = 700;
 const indicatorSize = 10;
 
 const clockNumbers = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-const secInDeg = 360 / 60;
-const minInDeg = 360 / 60;
-const houInDeg = 360 / 12;
 
 const getHandSize = (shorten: number) => (size / 2 - shorten);
 const getIndicatorOffset = () => ((size - indicatorSize) / 2);
 const getNumberOffset = (inset: number) => (size / 4 - inset);
 
-const getDegSec = () => (secInDeg * (new Date()).getSeconds());
-const getDegMin = () => (minInDeg * (new Date()).getMinutes());
-const getDegHou = () => (houInDeg * ((new Date()).getHours() > 11 ? (new Date()).getHours() - 11 : (new Date()).getHours()));
+const getDegSec = (d: Date) => (
+	(6 * d.getSeconds())
+		+ (0.006 * d.getMilliseconds())
+);
+const getDegMin = (d: Date) => (
+	(6 * d.getMinutes())
+		+ (0.1 * d.getSeconds())
+);
+const getDegHou = (d: Date) => (
+	30 * (d.getHours() > 11
+			? d.getHours() - 12
+			: d.getHours())
+				+ (0.5 * d.getMinutes())
+);
 
 export const Clock: React.FC = () => {
-	const [degSec, setDegSec] = useState(getDegSec());
-	const [degMin, setDegMin] = useState(getDegMin());
-	const [degHou, setDegHou] = useState(getDegHou());
+	const [degSec, setDegSec] = useState(getDegSec(new Date()));
+	const [degMin, setDegMin] = useState(getDegMin(new Date()));
+	const [degHou, setDegHou] = useState(getDegHou(new Date()));
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setDegSec(getDegSec());
-			setDegMin(getDegMin());
-			setDegHou(getDegHou());
-		}, 1000);
+			const d = new Date();
+
+			setDegSec(getDegSec(d));
+			setDegMin(getDegMin(d));
+			setDegHou(getDegHou(d));
+		}, 20);
 		return () => clearInterval(interval);
 	}, [degSec, degMin, degHou]);
 
@@ -50,7 +59,7 @@ export const Clock: React.FC = () => {
 			{[...Array(60).keys()].map(key => (
 				<Indicator
 					key={key}
-					deg={minInDeg * (key + 1)}
+					deg={6 * (key + 1)}
 					isHour={(key + 1) % 5 === 0}
 				/>
 			))}
@@ -93,7 +102,7 @@ const ClockNumber: React.FC<ClockNumberProps> = ({ number, deg }) => (
 		height={size / 2}
 		style={{ transform: `rotate(${deg}deg) translateY(-${getNumberOffset(20)}px)` }}
 	>
-		<Heading style={{ transform: `rotate(-${deg}deg)` }}>{number}</Heading>
+		<Heading p={0} style={{ transform: `rotate(-${deg}deg)` }}>{number}</Heading>
 	</Box>
 );
 
