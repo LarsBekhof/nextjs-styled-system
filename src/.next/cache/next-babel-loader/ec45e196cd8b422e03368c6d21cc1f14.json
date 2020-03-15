@@ -1,1 +1,0 @@
-{"ast":null,"code":"export * from './window-dimensions';","map":{"version":3,"sources":["/home/lars/Code/manager/src/atoms/hooks/index.ts"],"names":[],"mappings":"AAAA,cAAc,qBAAd","sourcesContent":["export * from './window-dimensions';"]},"metadata":{},"sourceType":"module"}

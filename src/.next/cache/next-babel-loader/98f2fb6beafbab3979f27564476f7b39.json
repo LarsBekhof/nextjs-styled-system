@@ -1,1 +1,0 @@
-{"ast":null,"code":"export * from './clock';","map":{"version":3,"sources":["/home/lars/Code/manager/src/molecules/timer/index.ts"],"names":[],"mappings":"AAAA,cAAc,SAAd","sourcesContent":["export * from './clock';"]},"metadata":{},"sourceType":"module"}
