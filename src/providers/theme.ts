@@ -1,5 +1,8 @@
 export default {
 	borderWidths: [0, 1, 2],
+	borderStyles: {
+		fileItem: 'solid',
+	},
 	colors: {
 		black: '#000',
 		white: '#fff',
@@ -19,7 +22,7 @@ export default {
 			300: '#b82601',
 		},
 		purples: {
-			100: '',
+			100: '#6569a3',
 			200: '#813772',
 			300: '#47003d',
 		},
@@ -52,15 +55,18 @@ export default {
 		paragraph: '24px',
 		label: '14px',
 		input: '40px',
-		button: '24px',
 	},
-	radii: [0, 2, 4, 8, 12, 16],
+	radii: [0, 2, 4, 8, 12, 16, 20, 24, 28, 32],
 	shadows: {},
 	sizes: {
 		full: '100%',
 		half: '50%',
 		third: '33%',
 		header: '100px',
+		input: '40px',
+		button: {
+			round: '40px',
+		},
 		modal: {
 			width: {
 				tiny: '300px',

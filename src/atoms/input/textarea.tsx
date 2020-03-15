@@ -48,6 +48,8 @@ const textareaInputStyle = css({
 	borderTopLeftRadius: 2,
 	borderTopRightRadius: 2,
 	borderColor: 'reds.300',
+	minHeight: 'input',
+	resize: 'vertical',
 	pl: 2,
 	pr: 2,
 });

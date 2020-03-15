@@ -16,7 +16,7 @@ export const useWindowDimensions = () => {
 			window.addEventListener('resize', handleResize);
 			return () => window.removeEventListener('resize', handleResize);
 		}
-	}, [window]);
+	}, [typeof window !== 'undefined' ? window : undefined]);
 
 	return windowDimensions || { width: 0, height: 0 };
 };

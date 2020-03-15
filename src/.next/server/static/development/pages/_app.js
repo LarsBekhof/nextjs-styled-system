@@ -201,6 +201,9 @@ class FontProvider extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   borderWidths: [0, 1, 2],
+  borderStyles: {
+    fileItem: 'solid'
+  },
   colors: {
     black: '#000',
     white: '#fff',
@@ -220,7 +223,7 @@ __webpack_require__.r(__webpack_exports__);
       300: '#b82601'
     },
     purples: {
-      100: '',
+      100: '#6569a3',
       200: '#813772',
       300: '#47003d'
     },
@@ -252,16 +255,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     paragraph: '24px',
     label: '14px',
-    input: '40px',
-    button: '24px'
+    input: '40px'
   },
-  radii: [0, 2, 4, 8, 12, 16],
+  radii: [0, 2, 4, 8, 12, 16, 20, 24, 28, 32],
   shadows: {},
   sizes: {
     full: '100%',
     half: '50%',
     third: '33%',
     header: '100px',
+    input: '40px',
+    button: {
+      round: '40px'
+    },
     modal: {
       width: {
         tiny: '300px',

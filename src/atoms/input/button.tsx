@@ -21,7 +21,6 @@ import { css } from '@styled-system/css';
 const headingStyle = css({
 	fontFamily: 'button',
 	fontSize: 'button',
-	lineHeight: 'button',
 	color: 'white',
 	bg: 'blues.300',
 	border: 'none',
@@ -37,7 +36,12 @@ const headingVariants = variant({
 			bg: 'transparent',
 			p: 0,
 			textDecoration: 'underline',
-		}
+		},
+		round: {
+			borderRadius: 9,
+			height: 'button.round',
+			width: 'button.round',
+		},
 	},
 });
 

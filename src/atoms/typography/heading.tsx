@@ -13,7 +13,6 @@ import { css } from '@styled-system/css';
 const headingStyle = css({
 	mt: 0,
 	mb: 0,
-	pt: 2,
 	pb: 3,
 	fontFamily: 'heading',
 	fontSize: 'heading.1',
